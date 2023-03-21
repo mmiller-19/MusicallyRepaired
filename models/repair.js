@@ -9,6 +9,6 @@ const repairSchema = new Schema({
     primaryContactEmail: String,
 });
 
-const Repair = model('repair', repairSchema);
+const Repair = model('Repair', repairSchema);
 
 module.exports = Repair;

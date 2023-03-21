@@ -6,6 +6,6 @@ const technicianSchema = new Schema({
     
 });
 
-const Technician = model('technician', technicianSchema);
+const Technician = model('Technician', technicianSchema);
 
 module.exports = Technician;
