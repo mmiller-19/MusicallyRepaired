@@ -1,11 +1,9 @@
-const {Schema} = require('mongoose');
+const {Schema, model} = require('mongoose');
 
 const technicianSchema = new Schema({
     name: String,
-    accountId: ObjectId
-    
+    accountId: { type: 'ObjectId', ref: 'Account' }
 });
 
 const Technician = model('Technician', technicianSchema);
-
 module.exports = Technician;
