@@ -1,13 +1,12 @@
-const {Schema} = require('mongoose');
+const {Schema, model} = require('mongoose');
 
 const customerSchema = new Schema({
     firstName: String,
     lastName: String,
     phoneNumber: Number,
-    customerId: {
-        type: Schema.Types.ObjectId,
-        ref: 'Instrument'
-    }
+    accountId: { type: 'ObjectId', ref: 'Account' },
+    instrumentId: { type: 'ObjectId', ref: 'Instrument' },
+    workOrderId: { type: 'ObjectId', ref: 'WorkOrder' }
 });
 
 const Customer = model('Customer', customerSchema);
