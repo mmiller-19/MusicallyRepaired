@@ -6,7 +6,7 @@ const notesSchema = new Schema({
         default: Date.now
     },
     creatorId: ObjectId,
-    content: String
+    content: String,
 });
 
 const Notes = model('Notes', notesSchema);
