@@ -17,7 +17,7 @@ async function seedDb() {
 function AccountSeed() {
     try {
         db.once('open', async () => {
-            Account.deleteMany({});
+            await Account.deleteMany({});
             
             let accountData = [];
         
@@ -44,7 +44,7 @@ function AccountSeed() {
 function CustomerSeed() {
     try {
         db.once('open', async () => {
-            Customer.deleteMany({});
+            await Customer.deleteMany({});
             
             let customerData = [];
         
@@ -71,7 +71,7 @@ function CustomerSeed() {
 function WorkOrderSeed() {
     try {
         db.once('open', async () => {
-            WorkOrder.deleteMany({})
+            await WorkOrder.deleteMany({})
 
             let workOrderData = [];
 
@@ -99,7 +99,7 @@ function WorkOrderSeed() {
 function RepairShopSeed() {
     try {
         db.once('open', async () => {
-            RepairShop.deleteMany({});
+            await RepairShop.deleteMany({});
 
             let repairShopData = [];
 
@@ -129,7 +129,7 @@ function RepairShopSeed() {
 function TechnicianSeed() {
     try {
         db.once('open', async () => {
-            Technician.deleteMany({});
+            await Technician.deleteMany({});
 
             let technicianData = [];
 
