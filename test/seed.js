@@ -3,17 +3,20 @@ const db = require('../config/connection');
 const Account = require('../models/account');
 const Customer = require('../models/customer');
 const Instrument = require('../models/instrument');
+const Message = require('../models/message');
+const { connection } = require('mongoose');
 
 async function seedDb() {
     AccountSeed();
     CustomerSeed();
     InstrumentSeed();
+    MessageSeed();
 }
 
 function AccountSeed() {
     try {
         db.once('open', async () => {
-            Account.collection.drop();
+            await Account.deleteMany({});
             
             let accountData = [];
         
@@ -40,7 +43,7 @@ function AccountSeed() {
 function CustomerSeed() {
     try {
         db.once('open', async () => {
-            Customer.collection.drop();
+            await Customer.deleteMany({});
             
             let customerData = [];
         
@@ -67,7 +70,7 @@ function CustomerSeed() {
 function InstrumentSeed() {
     try {
         db.once('open', async () => {
-            Instrument.collection.drop();
+            await Instrument.deleteMany({});
             
             let instrumentData = [];
         
@@ -83,6 +86,33 @@ function InstrumentSeed() {
             Instrument.collection.insertMany(instrumentData);
         
             console.log("Instrument seeded!");
+        });
+    } 
+    catch (error) 
+    {
+        console.log(error);    
+    }
+}
+
+function MessageSeed() {
+    try {
+        db.once('open', async () => {
+            await Message.deleteMany({});
+            
+            let messageData = [];
+        
+            for (let i = 0; i < 10; i++) {
+                let newMessage = {
+                    direction: faker.address.direction(),
+                    content: faker.lorem.paragraph(),
+                    senderId: faker.database.mongodbObjectId()
+                }
+                messageData.push(newMessage);
+            };
+        
+            Message.collection.insertMany(messageData);
+        
+            console.log("Message seeded!");
         });
     } 
     catch (error) 
