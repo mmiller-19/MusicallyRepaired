@@ -5,7 +5,7 @@ const notesSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    creatorId: ObjectId,
+    creatorId: String,
     content: String,
 });
 

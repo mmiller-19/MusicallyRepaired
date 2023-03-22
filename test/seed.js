@@ -4,13 +4,14 @@ const Account = require('../models/account');
 const Customer = require('../models/customer');
 const Instrument = require('../models/instrument');
 const Message = require('../models/message');
-const { connection } = require('mongoose');
+const Note = require('../models/notes');
 
 async function seedDb() {
     AccountSeed();
     CustomerSeed();
     InstrumentSeed();
     MessageSeed();
+    NoteSeed();
 }
 
 function AccountSeed() {
@@ -103,6 +104,7 @@ function MessageSeed() {
         
             for (let i = 0; i < 10; i++) {
                 let newMessage = {
+                    creationDate: faker.date.past(),
                     direction: faker.address.direction(),
                     content: faker.lorem.paragraph(),
                     senderId: faker.database.mongodbObjectId()
@@ -113,6 +115,33 @@ function MessageSeed() {
             Message.collection.insertMany(messageData);
         
             console.log("Message seeded!");
+        });
+    } 
+    catch (error) 
+    {
+        console.log(error);    
+    }
+}
+
+function NoteSeed() {
+    try {
+        db.once('open', async () => {
+            await Note.deleteMany({});
+            
+            let noteData = [];
+        
+            for (let i = 0; i < 10; i++) {
+                let newNote = {
+                    creationDate: faker.date.past(),
+                    creatorId: faker.database.mongodbObjectId(),
+                    content: faker.lorem.paragraph(),
+                }
+                noteData.push(newNote);
+            };
+        
+            Note.collection.insertMany(noteData);
+        
+            console.log("Note seeded!");
         });
     } 
     catch (error) 
