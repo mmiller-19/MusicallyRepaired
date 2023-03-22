@@ -5,6 +5,9 @@ const Customer = require('../models/customer');
 const Instrument = require('../models/instrument');
 const Message = require('../models/message');
 const Note = require('../models/notes');
+const WorkOrder = require('../models/workOrder');
+const RepairShop = require('../models/repairShop');
+const Technician = require('../models/technician');
 
 async function seedDb() {
     AccountSeed();
@@ -12,6 +15,9 @@ async function seedDb() {
     InstrumentSeed();
     MessageSeed();
     NoteSeed();
+    WorkOrderSeed();
+    RepairShopSeed();
+    TechnicianSeed();
 }
 
 function AccountSeed() {
@@ -52,7 +58,7 @@ function CustomerSeed() {
                 let newCustomer = {
                     firstName: faker.name.firstName(),
                     lastName: faker.name.lastName(),
-                    phoneNumber: faker.phone.number()
+                    phoneNumber: faker.phone.number(),
                 }
                 customerData.push(newCustomer);
             };
@@ -146,7 +152,97 @@ function NoteSeed() {
     } 
     catch (error) 
     {
-        console.log(error);    
+        console.log(error);
+    }
+ }
+ 
+function WorkOrderSeed() {
+    try {
+        db.once('open', async () => {
+            await WorkOrder.deleteMany({})
+
+            let workOrderData = [];
+
+            for (let i = 0; i < 10; i++) {
+                let newWorkOrder = {
+                    repairDate: faker.date.past(),
+                    dateCompleted: faker.date.recent(),
+                    repairReason: faker.hacker.noun(),
+                    repairStatus: faker.datatype.boolean(),
+                    customerId: faker.database.mongodbObjectId(),
+                    repairShopId: faker.database.mongodbObjectId(),
+                    instrumentId: faker.database.mongodbObjectId(),
+                    technicianId: faker.database.mongodbObjectId(),
+                    messageId: faker.database.mongodbObjectId(),
+                    noteId: faker.database.mongodbObjectId(),
+                }
+                workOrderData.push(newWorkOrder);
+            };
+
+            WorkOrder.collection.insertMany(workOrderData);
+
+            console.log("Work order seeded!");
+        })
+    } 
+    catch (error) 
+    {
+        console.log(error); 
+    }
+}
+
+function RepairShopSeed() {
+    try {
+        db.once('open', async () => {
+            await RepairShop.deleteMany({});
+
+            let repairShopData = [];
+
+            for (let i = 0; i < 10; i++) {
+                let newRepairShop = {
+                    shopName: faker.company.name(),
+                    address: faker.address.streetAddress(),
+                    owner: faker.name.fullName(),
+                    primaryContactName: faker.name.fullName(),
+                    primaryContactPhone: faker.phone.number(),
+                    primaryContactEmail: faker.internet.email(),
+                }
+                repairShopData.push(newRepairShop);
+            };
+
+            RepairShop.collection.insertMany(repairShopData);
+
+            console.log("Repair shop seeded!");
+        })
+    } 
+    catch (error) 
+    {
+        console.log(error); 
+    }
+}
+
+function TechnicianSeed() {
+    try {
+        db.once('open', async () => {
+            await Technician.deleteMany({});
+
+            let technicianData = [];
+
+            for (let i = 0; i < 10; i++) {
+                let newTechnician = {
+                    name: faker.name.fullName(),
+                    accountId: faker.database.mongodbObjectId(),
+                }
+                technicianData.push(newTechnician);
+            };
+
+            Technician.collection.insertMany(technicianData);
+
+            console.log("Technician seeded!");
+        })
+    } 
+    catch (error) 
+    {
+        console.log(error); 
     }
 }
 
