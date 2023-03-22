@@ -2,6 +2,7 @@ const { faker } = require('@faker-js/faker');
 const db = require('../config/connection');
 const Account = require('../models/account');
 const Customer = require('../models/customer');
+const WorkOrder = require('../models/workOrder');
 
 async function seedDb() {
     AccountSeed();
@@ -59,6 +60,28 @@ function CustomerSeed() {
     catch (error) 
     {
         console.log(error);    
+    }
+}
+
+function WorkOrderSeed() {
+    try {
+        db.once('open', async () => {
+            WorkOrder.deleteMany({});
+
+            let workOrderData = [];
+
+            for (let i = 0; i < 10; i++) {
+                let newWorkOrder = {
+                    repairDate: faker.date.past(),
+                    dateCompleted: faker.date.recent(),
+                    repairReason: faker.hacker.noun(),
+                    repairStatus: faker.datatype.boolean(),
+                }
+                workOrderData.push(newWorkOrder);
+            };
+        })
+    } catch (error) {
+        
     }
 }
 
