@@ -2,13 +2,20 @@ const { faker } = require('@faker-js/faker');
 const db = require('../config/connection');
 const Account = require('../models/account');
 const Customer = require('../models/customer');
+const Instrument = require('../models/instrument');
+const Message = require('../models/message');
+const Note = require('../models/notes');
 const WorkOrder = require('../models/workOrder');
 const RepairShop = require('../models/repairShop');
 const Technician = require('../models/technician');
 
+// Call Seed Methods
 async function seedDb() {
     AccountSeed();
     CustomerSeed();
+    InstrumentSeed();
+    MessageSeed();
+    NoteSeed();
     WorkOrderSeed();
     RepairShopSeed();
     TechnicianSeed();
@@ -68,6 +75,88 @@ function CustomerSeed() {
     }
 }
 
+function InstrumentSeed() {
+    try {
+        db.once('open', async () => {
+            await Instrument.deleteMany({});
+            
+            let instrumentData = [];
+        
+            for (let i = 0; i < 10; i++) {
+                let newInstrument = {
+                    type: faker.word.adjective(),
+                    make: faker.word.noun(),
+                    model: faker.word.noun()
+                }
+                instrumentData.push(newInstrument);
+            };
+        
+            Instrument.collection.insertMany(instrumentData);
+        
+            console.log("Instrument seeded!");
+        });
+    } 
+    catch (error) 
+    {
+        console.log(error);    
+    }
+}
+
+function MessageSeed() {
+    try {
+        db.once('open', async () => {
+            await Message.deleteMany({});
+            
+            let messageData = [];
+        
+            for (let i = 0; i < 10; i++) {
+                let newMessage = {
+                    creationDate: faker.date.past(),
+                    direction: faker.address.direction(),
+                    content: faker.lorem.paragraph(),
+                    senderId: faker.database.mongodbObjectId()
+                }
+                messageData.push(newMessage);
+            };
+        
+            Message.collection.insertMany(messageData);
+        
+            console.log("Message seeded!");
+        });
+    } 
+    catch (error) 
+    {
+        console.log(error);    
+    }
+}
+
+function NoteSeed() {
+    try {
+        db.once('open', async () => {
+            await Note.deleteMany({});
+            
+            let noteData = [];
+        
+            for (let i = 0; i < 10; i++) {
+                let newNote = {
+                    creationDate: faker.date.past(),
+                    creatorId: faker.database.mongodbObjectId(),
+                    content: faker.lorem.paragraph(),
+                }
+                noteData.push(newNote);
+            };
+        
+            Note.collection.insertMany(noteData);
+        
+            console.log("Note seeded!");
+        });
+    } 
+    catch (error) 
+    {
+        console.log(error);
+    }
+ }
+ 
 function WorkOrderSeed() {
     try {
         db.once('open', async () => {
