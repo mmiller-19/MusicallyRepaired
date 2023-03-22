@@ -52,7 +52,7 @@ function CustomerSeed() {
                 let newCustomer = {
                     firstName: faker.name.firstName(),
                     lastName: faker.name.lastName(),
-                    phoneNumber: faker.phone.number()
+                    phoneNumber: faker.phone.number(),
                 }
                 customerData.push(newCustomer);
             };
@@ -81,6 +81,12 @@ function WorkOrderSeed() {
                     dateCompleted: faker.date.recent(),
                     repairReason: faker.hacker.noun(),
                     repairStatus: faker.datatype.boolean(),
+                    customerId: faker.database.mongodbObjectId(),
+                    repairShopId: faker.database.mongodbObjectId(),
+                    instrumentId: faker.database.mongodbObjectId(),
+                    technicianId: faker.database.mongodbObjectId(),
+                    messageId: faker.database.mongodbObjectId(),
+                    noteId: faker.database.mongodbObjectId(),
                 }
                 workOrderData.push(newWorkOrder);
             };
