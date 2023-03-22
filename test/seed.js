@@ -4,12 +4,14 @@ const Account = require('../models/account');
 const Customer = require('../models/customer');
 const WorkOrder = require('../models/workOrder');
 const RepairShop = require('../models/repairShop');
+const Technician = require('../models/technician');
 
 async function seedDb() {
     AccountSeed();
     CustomerSeed();
     WorkOrderSeed();
     RepairShopSeed();
+    TechnicianSeed();
 }
 
 function AccountSeed() {
@@ -116,6 +118,32 @@ function RepairShopSeed() {
             RepairShop.collection.insertMany(repairShopData);
 
             console.log("Repair shop seeded!");
+        })
+    } 
+    catch (error) 
+    {
+        console.log(error); 
+    }
+}
+
+function TechnicianSeed() {
+    try {
+        db.once('open', async () => {
+            Technician.deleteMany({});
+
+            let technicianData = [];
+
+            for (let i = 0; i < 10; i++) {
+                let newTechnician = {
+                    name: faker.name.fullName(),
+                    accountId: faker.database.mongodbObjectId(),
+                }
+                technicianData.push(newTechnician);
+            };
+
+            Technician.collection.insertMany(technicianData);
+
+            console.log("Technician seeded!");
         })
     } 
     catch (error) 
