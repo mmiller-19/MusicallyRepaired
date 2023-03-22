@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { createAccount, getAllAccounts, getUserAccount } = require('../controllers/accountController');
+const {createAccount, getAllAccounts, getUserAccount} = require('../../controllers/accountController');
 
 router.route('/').get(getAllAccounts).post(createAccount);
 
