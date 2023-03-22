@@ -3,10 +3,13 @@ const db = require('../config/connection');
 const Account = require('../models/account');
 const Customer = require('../models/customer');
 const WorkOrder = require('../models/workOrder');
+const RepairShop = require('../models/repairShop');
 
 async function seedDb() {
     AccountSeed();
     CustomerSeed();
+    WorkOrderSeed();
+    RepairShopSeed();
 }
 
 function AccountSeed() {
@@ -66,7 +69,7 @@ function CustomerSeed() {
 function WorkOrderSeed() {
     try {
         db.once('open', async () => {
-            WorkOrder.deleteMany({});
+            WorkOrder.deleteMany({})
 
             let workOrderData = [];
 
@@ -79,9 +82,45 @@ function WorkOrderSeed() {
                 }
                 workOrderData.push(newWorkOrder);
             };
+
+            WorkOrder.collection.insertMany(workOrderData);
+
+            console.log("Work order seeded!");
         })
-    } catch (error) {
-        
+    } 
+    catch (error) 
+    {
+        console.log(error); 
+    }
+}
+
+function RepairShopSeed() {
+    try {
+        db.once('open', async () => {
+            RepairShop.deleteMany({});
+
+            let repairShopData = [];
+
+            for (let i = 0; i < 10; i++) {
+                let newRepairShop = {
+                    shopName: faker.company.name(),
+                    address: faker.address.streetAddress(),
+                    owner: faker.name.fullName(),
+                    primaryContactName: faker.name.fullName(),
+                    primaryContactPhone: faker.phone.number(),
+                    primaryContactEmail: faker.internet.email(),
+                }
+                repairShopData.push(newRepairShop);
+            };
+
+            RepairShop.collection.insertMany(repairShopData);
+
+            console.log("Repair shop seeded!");
+        })
+    } 
+    catch (error) 
+    {
+        console.log(error); 
     }
 }
 
