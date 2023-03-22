@@ -9,6 +9,7 @@ const WorkOrder = require('../models/workOrder');
 const RepairShop = require('../models/repairShop');
 const Technician = require('../models/technician');
 
+// Call Seed Methods
 async function seedDb() {
     AccountSeed();
     CustomerSeed();
