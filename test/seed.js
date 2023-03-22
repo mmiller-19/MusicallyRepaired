@@ -2,16 +2,18 @@ const { faker } = require('@faker-js/faker');
 const db = require('../config/connection');
 const Account = require('../models/account');
 const Customer = require('../models/customer');
+const Instrument = require('../models/instrument');
 
 async function seedDb() {
     AccountSeed();
     CustomerSeed();
+    InstrumentSeed();
 }
 
 function AccountSeed() {
     try {
         db.once('open', async () => {
-            Account.deleteMany({});
+            Account.collection.drop();
             
             let accountData = [];
         
@@ -38,7 +40,7 @@ function AccountSeed() {
 function CustomerSeed() {
     try {
         db.once('open', async () => {
-            Customer.deleteMany({});
+            Customer.collection.drop();
             
             let customerData = [];
         
@@ -54,6 +56,33 @@ function CustomerSeed() {
             Customer.collection.insertMany(customerData);
         
             console.log("Customer seeded!");
+        });
+    } 
+    catch (error) 
+    {
+        console.log(error);    
+    }
+}
+
+function InstrumentSeed() {
+    try {
+        db.once('open', async () => {
+            Instrument.collection.drop();
+            
+            let instrumentData = [];
+        
+            for (let i = 0; i < 10; i++) {
+                let newInstrument = {
+                    type: faker.word.adjective(),
+                    make: faker.word.noun(),
+                    model: faker.word.noun()
+                }
+                instrumentData.push(newInstrument);
+            };
+        
+            Instrument.collection.insertMany(instrumentData);
+        
+            console.log("Instrument seeded!");
         });
     } 
     catch (error) 
