@@ -1,6 +1,5 @@
 const Account = require('../models/account');
 
-
 module.exports = {
     getAllAccounts(req, res) {
         Account.find()
