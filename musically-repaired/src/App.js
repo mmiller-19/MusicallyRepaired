@@ -1,10 +1,13 @@
 import './App.css';
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import Navigation from './components/Navigation';
 
 function App() {
   return (
-    <div className="App">
-        <p>Hello!</p>
-    </div>
+    <BrowserRouter>
+      <Navigation />
+      <p>Hello!</p>
+    </BrowserRouter>
   );
 }
 
