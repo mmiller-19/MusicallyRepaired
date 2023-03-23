@@ -1,5 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
+
+body {
+    font-family: 'Cabin', sans-serif;
+}
+
 .Nav {
     display: flex;
     justify-content: space-evenly;
-    background-color: aqua;
+    align-items: center;
+    background-color: #CCA064;
+    height: 10vh;
+}
+
+.Nav a {
+    font-size: 20px;
+    text-decoration: none;
+    color: #FFF8E0;
+}
+
+.logo {
+    width: 100px;
 }
