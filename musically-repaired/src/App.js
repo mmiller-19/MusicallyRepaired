@@ -1,12 +1,15 @@
 import './assets/css/App.css';
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import Navigation from './components/Navigation';
+import Home from './components/Home';
 
 function App() {
   return (
     <BrowserRouter>
       <Navigation />
-      <p>Hello!</p>
+      <Routes>
+        <Route path='/' element={<Home/>} />
+      </Routes>
     </BrowserRouter>
   );
 }
