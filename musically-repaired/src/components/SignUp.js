@@ -9,7 +9,6 @@ import Button from '@mui/material/Button';
 export default function SignUp() {
     return (
         <div className="SignUp">
-            <h1>Create An Account</h1>
             <form>
                 <Box
                     component="form"
@@ -27,6 +26,7 @@ export default function SignUp() {
                     noValidate
                     autoComplete="off"
                     >  
+                    <h1>Create An Account</h1>
                     <TextField required id="email-text-field" label="Email" type="text" fullWidth/>
                     <TextField required id="password-text-field" label="Username" type="text" fullWidth/>
                     <FormControl fullWidth>
@@ -38,10 +38,10 @@ export default function SignUp() {
                             <MenuItem value={"Front Desk"}>Front Desk</MenuItem>
                         </Select>
                     </FormControl>
-                    <Button variant="contained" type="submit">Submit</Button>
+                    <Button variant="contained" type="submit">Sign Up</Button>
+                    <small>Have an account? <Link to="/login">Log in here</Link></small>
                 </Box>
             </form>
-            <small>Have an account? <Link to="/login">Log in here</Link></small>
         </div>
     )
 }
